@@ -9,6 +9,9 @@
 #include <iomanip>
 
 using namespace std;
+/* 
+   Search for MATT, to find comments to you.
+*/
 
 /* DEFINES FOR TYPES AND OPS */
 #define ALU_TYPE 0
@@ -54,27 +57,46 @@ using namespace std;
 
 
 /* ALU Type Structs */
+//page 150
 struct ALU_LSLI_Instr {
-  // TODO
+   unsigned int rd: 3;
+   unsigned int rm: 3;
+   unsigned int imm: 5;
+   unsigned int type_check: 5;
+   unsigned int pad: 16;
 };
 
 typedef ALU_LSLI_Instr ALU_LSRI_Instr;
 typedef ALU_LSLI_Instr ALU_ASRI_Instr;
 
+//MATT, check this out
+//page 109
 struct ALU_ADDR_Instr {
-  // TODO
+   unsigned int rd: 3;
+   unsigned int rn: 3;
+   unsigned int rm: 3;
+   unsigned int type_check: 7;
+   unsigned int pad: 16;
 };
 
 typedef ALU_ADDR_Instr ALU_SUBR_Instr;
 
+//page 107
 struct ALU_ADD3I_Instr {
-  // TODO
+   unsigned int rd: 3;
+   unsigned int rn: 3;
+   unsigned int imm: 3;
+   unsigned int type_chec: 7;
+   unsigned int pad: 16;
 };
 
 typedef ALU_ADD3I_Instr ALU_SUB3I_Instr;
-
+//page 107
 struct ALU_ADD8I_Instr {
-  // TODO
+   unsigned int imm: 8;
+   unsigned int rd : 3;
+   unsigned int type_check: 5;
+   unsigned int pad: 16;
 };
 
 typedef ALU_ADD8I_Instr ALU_SUB8I_Instr;
@@ -125,14 +147,21 @@ struct DP_Type {
 
 /* Special Types */
 struct SP_ADD_Instr {
-  // TODO
+   unsigned int data: 8; 
+   unsigned int reg: 3;
+   unsigned int type_check: 5;
+   unsigned int pad: 16;
 };
 
 typedef SP_ADD_Instr SP_CMP_Instr;
 typedef SP_ADD_Instr SP_MOV_Instr;
 
+//page 57 MATT, I think this is right, may want to check for yourself
 struct SP_BX_Instr {
-  // TODO
+   unsigned int imm: 6;
+   unsigned int op: 4;
+   unsigned int type: 6;
+   unsigned int pad: 16;
 };
 
 typedef SP_BX_Instr SP_BLX_Instr;
@@ -189,9 +218,13 @@ struct MISC_ADD_Instr {
 };
 
 typedef MISC_ADD_Instr MISC_SUB_Instr;
-
+//page 191
 struct MISC_SXTH_Instr {
-  // TODO
+   unsigned int regD: 3;
+   unsigned int regM: 3;
+   unsigned int op: 6;
+   unsigned int type: 4;
+   unsigned int pad: 16;
 };
 
 typedef MISC_SXTH_Instr MISC_SXTB_Instr;
@@ -212,7 +245,10 @@ struct MISC_PUSH_Instr {
 typedef MISC_PUSH_Instr MISC_POP_Instr;
 
 struct MISC_BKPT_Instr {
-  // TODO
+   unsigned int imm: 8;
+   unsigned int opt: 4;
+   unsigned int type: 4;
+   unsigned int pad: 16;
 };
 
 struct MISC_Type {
@@ -237,8 +273,12 @@ struct MISC_Type {
    } instr;
 };
 /* Conditional Type */
+//page 119
 struct COND_B_Instr {
-  // TODO
+   unsigned int imm: 8;
+   unsigned int cond: 4
+   unsigned int type: 4;
+   unsigned int pad: 16;
 }; 
 
 struct COND_Type {
@@ -253,8 +293,12 @@ struct COND_Type {
 };
 
 /* Literal Type */
+//page 141
 struct LDRL_Instr {
-  // TODO
+   unsigned int imm: 8;
+   unsigned int rt: 3;
+   unsigned int type: 5;
+   unsigned int pad: 16;
 };
 
 struct LDRL_Type {
@@ -269,8 +313,14 @@ struct LDRL_Type {
 };
 
 /* ST Multiple Type*/
+//page 175
 struct STM_Instr {
-  // TODO
+   unsigned int reg_list: 8;
+   unsigned int rn: 3;
+   unsigned int matt: 1;
+   unsigned int type: 4;
+
+   unsigned int pad: 16;
 };
 
 struct STM_Type {
@@ -285,8 +335,12 @@ struct STM_Type {
 };
 
 /* LD Multiple Type*/
+//page 137
 struct LDM_Instr {
-  // TODO
+   unsigned int reg_list: 8;
+   unsigned int rn: 3;
+   unsigned int type_check: 5;
+   unsigned int pad: 16;
 };
 
 struct LDM_Type {
@@ -301,8 +355,12 @@ struct LDM_Type {
 };
 
 /* Unconditional Type */
+//page 119 ===> MATT, not sure how this is different from the unconditional.
+// So I picked encoding 2
 struct UNCOND_B_Instr {
-  // TODO
+   unsigned int imm: 11;
+   unsigned int type: 5;
+   unsigned int pad: 16;
 };
 
 struct UNCOND_Type {
@@ -316,9 +374,13 @@ struct UNCOND_Type {
    } instr;
 };
 
-
+//page 111
+//MATT, not sure about the adds!
 struct ADD_SP_Instr {
-  // TODO
+   unsigned int imm: 8;
+   unsigned int rd: 3
+   unsigned int type_check: 5;
+   unsigned int pad: 16;
 };
 
 struct ADD_SP_Type {
