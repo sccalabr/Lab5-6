@@ -1,5 +1,5 @@
-all: decode.cpp decode.hpp
-	g++ -O2 -g decode.cpp -o decode
+all: decode.cc decode.hpp
+	g++ -O2 -g decode.cc -o decode
 
 run:
 	./decode -f input.sim
