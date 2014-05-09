@@ -62,7 +62,7 @@ struct ALU_LSLI_Instr {
    unsigned int rd: 3;
    unsigned int rm: 3;
    unsigned int imm: 5;
-   unsigned int type_check: 5;
+   unsigned int op: 5;
    unsigned int pad: 16;
 };
 
@@ -75,7 +75,7 @@ struct ALU_ADDR_Instr {
    unsigned int rd: 3;
    unsigned int rn: 3;
    unsigned int rm: 3;
-   unsigned int type_check: 7;
+   unsigned int op: 7;
    unsigned int pad: 16;
 };
 
@@ -86,7 +86,7 @@ struct ALU_ADD3I_Instr {
    unsigned int rd: 3;
    unsigned int rn: 3;
    unsigned int imm: 3;
-   unsigned int type_chec: 7;
+   unsigned int op: 7;
    unsigned int pad: 16;
 };
 
@@ -95,7 +95,7 @@ typedef ALU_ADD3I_Instr ALU_SUB3I_Instr;
 struct ALU_ADD8I_Instr {
    unsigned int imm: 8;
    unsigned int rd : 3;
-   unsigned int type_check: 5;
+   unsigned int op: 5;
    unsigned int pad: 16;
 };
 
