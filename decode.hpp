@@ -276,7 +276,7 @@ struct MISC_Type {
 //page 119
 struct COND_B_Instr {
    unsigned int imm: 8;
-   unsigned int cond: 4
+   unsigned int cond: 4;
    unsigned int type: 4;
    unsigned int pad: 16;
 }; 
@@ -378,7 +378,7 @@ struct UNCOND_Type {
 //MATT, not sure about the adds!
 struct ADD_SP_Instr {
    unsigned int imm: 8;
-   unsigned int rd: 3
+   unsigned int rd: 3;
    unsigned int type_check: 5;
    unsigned int pad: 16;
 };
