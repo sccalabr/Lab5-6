@@ -191,35 +191,26 @@ int classify_type(const ALL_Types data) {
        else if (data.type.alu.instr.asri.op == ALU_ASRI_OP) {
              cout << "add 112" << endl;
        }
-       else if (data.type.alu.instr.addr.op == ALU_ADDR_OP) {
-	 printALUreg("add", data);
+       else if (data.type.alu.instr.addr.op == ALU_ADDR_OP) { 
+         printALUreg("add", data);
        }
        else if (data.type.alu.instr.subr.op == ALU_SUBR_OP) {
         cout << "add 114" << endl;
        }
        else if (data.type.alu.instr.add3i.op == ALU_ADD3I_OP) {
-          printALUimm("add",
-	  data.type.alu.instr.add3i.rd,
-	  data.type.alu.instr.add3i.rn,
-	  data.type.alu.instr.add3i.imm);
+          printALUimm("add", data.type.alu.instr.add3i.rd, data.type.alu.instr.add3i.rn, data.type.alu.instr.add3i.imm);
        }
        else if (data.type.alu.instr.sub3i.op == ALU_SUB3I_OP) {
-        cout << "add 116" << endl;
+         cout << "add 116" << endl;
        }
        else if (data.type.alu.instr.add8i.op == ALU_ADD8I_OP) {
-	  printALUimm("adds",
-	    data.type.alu.instr.add8i.rd, 
-	    -1, 
-	    data.type.alu.instr.add8i.imm);
+         printALUimm("adds", data.type.alu.instr.add8i.rd, -1, data.type.alu.instr.add8i.imm);
        }
        else if (data.type.alu.instr.sub8i.op == ALU_SUB8I_OP) {
-        cout << "add 118" << endl;
+         cout << "add 118" << endl;
        }
        else if (data.type.alu.instr.cmp.op == ALU_CMP_OP) {
-        printALUimm("cmp",
-	  data.type.alu.instr.cmp.rd,
-	  -1,
-	  data.type.alu.instr.cmp.imm);
+        printALUimm("cmp", data.type.alu.instr.cmp.rd, -1, data.type.alu.instr.cmp.imm);
        }
       else if (data.type.alu.instr.mov.op == ALU_MOV_OP) {
          if(data.type.alu.instr.mov.op == 0x4) {
@@ -242,7 +233,7 @@ int classify_type(const ALL_Types data) {
          }
       }
       else {
-	cout << "COULD NOT FIND: ALU_TYPE" << endl;
+         cout << "COULD NOT FIND: ALU_TYPE" << endl;
       }
       return ALU_TYPE;
    }
@@ -261,90 +252,91 @@ int classify_type(const ALL_Types data) {
       return UNCOND_TYPE;
    }
   else if (data.type.misc.instr.class_type.type_check == MISC_TYPE) {
-    // There are more than these two MISC_TYPES,
-    // You'll need to complete them here.
-    if (data.type.misc.instr.push.op == MISC_PUSH_OP) {
-      cout << "push ";
-      cout << "{";
-      printRegList(data.type.misc.instr.push.reg_list);
-      cout << "lr}" << endl;
-    }
-    else if (data.type.misc.instr.sub.op == MISC_SUB_OP) {
-      cout << "sub sp, #";
-      cout << setbase(10) << (static_cast<unsigned int>(data.type.misc.instr.sub.imm)<< 2) << endl;
-    }
-    else {
-      cout << "COULD NOT FIND: MISC_TYPE" << endl;
-    }
-    return MISC_TYPE;
-  }
-
-  // Complete the rest of these
-  else if (data.type.cond.instr.class_type.type_check == COND_TYPE) {
-    cout << "b";
-    ALL_Types::printCond(data.type.cond.instr.b.cond);
-    cout << " #" << dec << data.type.cond.instr.b.imm << endl;   
-    
-    return COND_TYPE;
-  }
-  else if (data.type.ldm.instr.class_type.type_check == LDM_TYPE) {
-        cout << "add 12";
-    return LDM_TYPE;
-  }
-  else if (data.type.stm.instr.class_type.type_check == STM_TYPE) {
-        cout << "add 13";
-    return STM_TYPE;
-  }
-  else if (data.type.ldrl.instr.class_type.type_check == LDRL_TYPE) {
-        cout << "add 14";
-    return LDRL_TYPE;
-  }
-  else if (data.type.addsp.instr.class_type.type_check == ADD_SP_TYPE) {
-        cout << "add ";
-     
-        if(data.type.addsp.instr.add.type_check == 0x15) {
-            printReg(data.type.addsp.instr.add.rd);
-            cout << "sp, ";
-            cout << "#" << data.type.addsp.instr.add.imm << endl;
-        }
-        else if(data.type.addsp.instr.add.type_check == 0x16) {
-            cout << "sp, sp, #" << data.type.addsp.instr.add.imm << endl;
-        }
-        else {
-         cout << "COULD NOT FIND: ADD_SP_TYPE" << endl;
-        }
-     
-    return ADD_SP_TYPE;
-  }
-  else {
-    // Complete the rest of these instruction classes
-    if (data.type.ld_st.instr.class_type.opA == LD_ST_REG_OPA) {
-          cout << "add 16";
-    }
-    else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMM_OPA) {
-      if (data.type.ld_st.instr.class_type.opB == LD_ST_OPB_STR) {
-	printLSimm("str", data);
+      // There are more than these two MISC_TYPES,
+      // You'll need to complete them here.
+      if (data.type.misc.instr.push.op == MISC_PUSH_OP) {
+         cout << "push ";
+         cout << "{";
+         printRegList(data.type.misc.instr.push.reg_list);
+         cout << "lr}" << endl;
       }
-      else if (data.type.ld_st.instr.class_type.opB == LD_ST_OPB_LDR) {
-	printLSimm("ldr", data);
+      else if (data.type.misc.instr.sub.op == MISC_SUB_OP) {
+         cout << "sub sp, #";
+         cout << setbase(10) << (static_cast<unsigned int>(data.type.misc.instr.sub.imm)<< 2) << endl;
       }
       else {
-	cout << "COULD NOT FIND: LD_ST_IMM_OPA" << endl;
+         cout << "COULD NOT FIND: MISC_TYPE" << endl;
       }
-    }
-    else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMMB_OPA) {
-          cout << "add 19";
-    }
-    else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMMH_OPA) {
-          cout << "add 20";
-    }
-    else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMMSP_OPA) {
-          cout << "add 21";
-    }
-    else {
-      cout << "NOT A VALID INSTRUCTION" << endl;
-    }
-    return 0;
+      return MISC_TYPE;
+   }
+
+      // Complete the rest of these
+   else if (data.type.cond.instr.class_type.type_check == COND_TYPE) {
+      cout << "b";
+      ALL_Types::printCond(data.type.cond.instr.b.cond);
+      cout << " #" << dec << data.type.cond.instr.b.imm << endl;   
+       
+      return COND_TYPE;
+   }
+   else if (data.type.ldm.instr.class_type.type_check == LDM_TYPE) {
+      cout << "add 12";
+      return LDM_TYPE;
+   }
+   else if (data.type.stm.instr.class_type.type_check == STM_TYPE) {
+      cout << "add 13";
+      return STM_TYPE;
+   }
+   else if (data.type.ldrl.instr.class_type.type_check == LDRL_TYPE) {
+      cout << "add 14";
+      return LDRL_TYPE;
+   }
+   else if (data.type.addsp.instr.class_type.type_check == ADD_SP_TYPE) {
+      cout << "add ";
+     
+      if(data.type.addsp.instr.add.type_check == 0x15) {
+         printReg(data.type.addsp.instr.add.rd);
+         cout << "sp, ";
+         cout << "#" << data.type.addsp.instr.add.imm << endl;
+      }
+      else if(data.type.addsp.instr.add.type_check == 0x16) {
+         cout << "sp, sp, #" << data.type.addsp.instr.add.imm << endl;
+      }
+      else {
+         cout << "COULD NOT FIND: ADD_SP_TYPE" << endl;
+      }
+
+      return ADD_SP_TYPE;
+   }
+   else {
+      // Complete the rest of these instruction classes
+      if (data.type.ld_st.instr.class_type.opA == LD_ST_REG_OPA) {
+          cout << "add 16";
+      }
+      else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMM_OPA) {
+         if (data.type.ld_st.instr.class_type.opB == LD_ST_OPB_STR) {
+            printLSimm("str", data);
+         }
+         else if (data.type.ld_st.instr.class_type.opB == LD_ST_OPB_LDR) {
+            printLSimm("ldr", data);
+         }
+         else {
+            cout << "COULD NOT FIND: LD_ST_IMM_OPA" << endl;
+         }
+      }
+      else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMMB_OPA) {
+         cout << "add 19";
+      }
+      else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMMH_OPA) {
+         cout << "add 20";
+      }
+      else if (data.type.ld_st.instr.class_type.opA == LD_ST_IMMSP_OPA) {
+         cout << "add 21";
+      }
+      else {
+         cout << "NOT A VALID INSTRUCTION" << endl;
+      }
+   
+      return 0;
   }
   cout << endl << "NO TYPE FOUND" << endl;
   return -1; // Error
