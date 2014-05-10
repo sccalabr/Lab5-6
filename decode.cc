@@ -18,7 +18,7 @@ void printReg(unsigned int reg);
 void printLSimm(string op, const ALL_Types data) {
   cout << op << " ";
   printReg(data.type.ld_st.instr.ld_st_imm.rt);
-  cout << " [";
+  cout << ", [";
   printReg(data.type.ld_st.instr.ld_st_imm.rn);
   cout << ", #" << data.type.ld_st.instr.ld_st_imm.imm; 
   cout << "]" << endl;
@@ -216,7 +216,7 @@ int classify_type(const ALL_Types data) {
          if(data.type.alu.instr.mov.op == 0x4) {
             cout << "movs ";
             printReg(data.type.alu.instr.mov.rd);
-            cout << "#" << data.type.alu.instr.mov.imm << endl; 
+            cout << ", #" << data.type.alu.instr.mov.imm << endl; 
          }
          else if(data.type.alu.instr.mov.op == 0x8) {
             cout << "movs ";
@@ -295,11 +295,11 @@ int classify_type(const ALL_Types data) {
      
       if(data.type.addsp.instr.add.type_check == 0x15) {
          printReg(data.type.addsp.instr.add.rd);
-         cout << "sp, ";
+         cout << ", sp, ";
          cout << "#" << data.type.addsp.instr.add.imm << endl;
       }
       else if(data.type.addsp.instr.add.type_check == 0x16) {
-         cout << "sp, sp, #" << data.type.addsp.instr.add.imm << endl;
+         cout << ", sp, sp, #" << data.type.addsp.instr.add.imm << endl;
       }
       else {
          cout << "COULD NOT FIND: ADD_SP_TYPE" << endl;
