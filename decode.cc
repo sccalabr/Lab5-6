@@ -20,7 +20,7 @@ void printLSimm(string op, const ALL_Types data) {
   printReg(data.type.ld_st.instr.ld_st_imm.rt);
   cout << ", [";
   printReg(data.type.ld_st.instr.ld_st_imm.rn);
-  cout << ", #" << data.type.ld_st.instr.ld_st_imm.imm; 
+  cout << ", #" << dec << data.type.ld_st.instr.ld_st_imm.imm * 4; 
   cout << "]" << endl;
 }
 
@@ -181,7 +181,7 @@ int main(int argc, char ** argv) {
 
 int classify_type(const ALL_Types data) {
    
-  if (data.type.alu.instr.class_type.type_check == ALU_TYPE) {
+   if (data.type.alu.instr.class_type.type_check == ALU_TYPE) {
        if (data.type.alu.instr.lsli.op == ALU_LSLI_OP) {
              cout << "add 1" << endl;
        }
@@ -192,13 +192,13 @@ int classify_type(const ALL_Types data) {
              cout << "add 112" << endl;
        }
        else if (data.type.alu.instr.addr.op == ALU_ADDR_OP) { 
-         printALUreg("add", data);
+         printALUreg("adds", data);
        }
        else if (data.type.alu.instr.subr.op == ALU_SUBR_OP) {
         cout << "add 114" << endl;
        }
        else if (data.type.alu.instr.add3i.op == ALU_ADD3I_OP) {
-          printALUimm("add", data.type.alu.instr.add3i.rd, data.type.alu.instr.add3i.rn, data.type.alu.instr.add3i.imm);
+          printALUimm("adds", data.type.alu.instr.add3i.rd, data.type.alu.instr.add3i.rn, data.type.alu.instr.add3i.imm);
        }
        else if (data.type.alu.instr.sub3i.op == ALU_SUB3I_OP) {
          cout << "add 116" << endl;
@@ -242,16 +242,20 @@ int classify_type(const ALL_Types data) {
       return DP_TYPE;
    }
    else if (data.type.sp.instr.class_type.type_check == SP_TYPE) {
-      cout << "add 122" << endl;
+      cout << "mov sp, ";
+      printReg((data.type.sp.instr.class_type.data & 0x78) >> 3);
+      cout << "\n";
+      
+      
       return SP_TYPE;
    }
    else if (data.type.uncond.instr.class_type.type_check == UNCOND_TYPE) {
-      cout << "b #";
-      cout << dec << data.type.uncond.instr.class_type.data << endl;  // MATT THESE PRINT IN HEX???
+      cout << "b 0x";
+      cout << hex << data.type.uncond.instr.class_type.data << endl;  // MATT THESE PRINT IN HEX???
       
       return UNCOND_TYPE;
    }
-  else if (data.type.misc.instr.class_type.type_check == MISC_TYPE) {
+   else if (data.type.misc.instr.class_type.type_check == MISC_TYPE) {
       // There are more than these two MISC_TYPES,
       // You'll need to complete them here.
       if (data.type.misc.instr.push.op == MISC_PUSH_OP) {
@@ -264,17 +268,27 @@ int classify_type(const ALL_Types data) {
          cout << "sub sp, #";
          cout << setbase(10) << (static_cast<unsigned int>(data.type.misc.instr.sub.imm)<< 2) << endl;
       }
+      else if(data.type.misc.instr.pop.op == MISC_POP_OP) {
+         cout << "pop ";
+         cout << "{";
+         printRegList(data.type.misc.instr.pop.reg_list);
+         cout << "pc}" << "\n";
+      }
+      else if(data.type.misc.instr.add.op == MISC_ADD_OP) {
+         cout << "add sp, #";
+         cout << setbase(10) << (static_cast<unsigned int>(data.type.misc.instr.add.imm)<< 2) << endl;
+      }
       else {
          cout << "COULD NOT FIND: MISC_TYPE" << endl;
       }
+      
       return MISC_TYPE;
    }
-
-      // Complete the rest of these
+   // Complete the rest of these
    else if (data.type.cond.instr.class_type.type_check == COND_TYPE) {
       cout << "b";
       ALL_Types::printCond(data.type.cond.instr.b.cond);
-      cout << " #" << dec << data.type.cond.instr.b.imm << endl;   
+      cout << " 0x" << hex << data.type.cond.instr.b.imm << endl;   
        
       return COND_TYPE;
    }
