@@ -53,6 +53,7 @@ using namespace std;
 #define MISC_PUSH_OP 2
 #define MISC_SUB_OP 1
 #define MISC_POP_OP 6
+#define MISC_ADD_OP 0
 #define ADD_SP8I_TYPE 22
 
 
@@ -355,7 +356,7 @@ struct LDM_Type {
 };
 
 /* Unconditional Type */
-//page 119 ===> MATT, not sure how this is different from the unconditional.
+//page 119 ===> MATT, not sure how this is different from the conditional.
 // So I picked encoding 2
 struct UNCOND_B_Instr {
    unsigned int imm: 11;
