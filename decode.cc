@@ -94,7 +94,7 @@ unsigned int getPCData(ifstream & in, unsigned int pc) {
     in >> data;
   } 
   if (in >> data) {
-    cout << hex << addr << ":     ";
+//    cout << hex << addr << ":     ";
     return data;
   }
   else {
@@ -109,7 +109,7 @@ unsigned int getNextValidInstr(ifstream & in) {
   while (in >> addr >> data && data > 0x10000) {
   }
   if (addr != 0xda) {
-    cout << hex << addr << ":     ";
+ //   cout << hex << addr << ":     ";
   }
   return data;
 }
