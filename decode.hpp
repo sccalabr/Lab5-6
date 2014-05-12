@@ -1,3 +1,9 @@
+/**
+ * Lab 5-6
+ * CPE 315-01/02, Dr. Lupo
+ * @author Matt Bague & Stephen Calabrese
+ */
+
 #ifndef _DECODE_H_
 #define _DECODE_H_
 #include <unistd.h>
